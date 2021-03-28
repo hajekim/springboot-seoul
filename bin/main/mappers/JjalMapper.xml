@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.JjalMapper">
+
+	<sql id="jjalColumns">
+		  JJAL_ID
+		, ADDR
+	</sql>
+
+	<insert id="insertJjal" parameterType="JjalDTO">
+		INSERT INTO TBL_JJAL (
+			ADDR
+		) VALUES (
+			#{ADDR}
+		)
+	</insert>
+
+	<select id="selectJjalDetail" parameterType="long" resultType="JjalDTO">
+		SELECT
+			<include refid="jjalColumns" />
+		FROM
+			TBL_JJAL
+		WHERE
+			JJAL_ID = #{JJAL_ID}
+	</select>
+
+<!-- 	<update id="updateJjal" parameterType="JjalDTO">
+		UPDATE TBL_JJAL
+		SET
+			  update_time = NOW()
+			, title = #{title}
+			, content = #{content}
+			, writer = #{writer}
+			, notice_yn = IFNULL(#{noticeYn}, 'N')
+			, secret_yn = IFNULL(#{secretYn}, 'N')
+		WHERE
+			JJAL_ID = #{JJAL_ID}
+	</update> -->
+
+	<delete id="deleteJjal" parameterType="JjalDTO">
+		DELETE #{JJAL_ID}
+		FROM TBL_JJAL
+	</delete>
+
+	<select id="selectJjalList" parameterType="JjalDTO" resultType="JjalDTO">
+		SELECT
+			<include refid="jjalColumns" />
+		FROM
+			TBL_JJAL
+		ORDER BY
+			JJAL_ID DESC
+	</select>
+
+	<select id="selectJjalTotalCount" parameterType="JjalDTO" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			TBL_JJAL
+	</select>
+
+</mapper>
